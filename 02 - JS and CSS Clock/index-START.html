@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
+  <link rel="shortcut icon" href="#">
 </head>
 <body>
 
@@ -62,12 +63,33 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.5s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+    const secondMove = document.querySelector(".second-hand");
+    const minMove = document.querySelector(".min-hand");
+    const hourMove = document.querySelector(".hour-hand");
 
+    const setDate = () => {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const secondsDegrees = ((seconds / 60) * 360 + 90);
+      console.log(seconds);
+      secondMove.style.transform = `rotate(${secondsDegrees}deg)`;
+      const minutesDegrees = ((minutes / 60) * 360 + 90);
+      minMove.style.transform = `rotate(${minutesDegrees}deg)`;
+      const hourMoveDegrees = ((minutes / 12) * 360 + 90);
+      hourMove.style.transform = `rotate(${hourMoveDegrees}deg)`;
+    }
+
+   setInterval(setDate, 1000);
 
   </script>
 </body>

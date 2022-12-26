@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="#">
 </head>
 <body>
 
@@ -59,6 +60,24 @@
 
 <script>
 
+  window.addEventListener("keydown", (event) => {
+    const dataKey = event.which;
+    const key = document.querySelector(`[data-key="${dataKey}"]`);
+    const audio = document.querySelector(`audio[data-key="${dataKey}"]`);
+    if (!audio) return; // stop function from running all together
+    audio.currentTime = 0; // rewind to the stop
+    audio.play();
+    key.classList.toggle("playing" , "sound");
+  });
+
+  const keys = document.querySelectorAll(".key");
+  keys.forEach ((key) => {
+    key.addEventListener("transitionend", (event) => {
+      if (event.propertyName === 'transform'){
+        key.classList.remove("playing");
+      }
+    });
+  });
 </script>
 
 
